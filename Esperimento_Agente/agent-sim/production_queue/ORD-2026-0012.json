@@ -1,0 +1,27 @@
+{
+  "id_ordine": "ORD-2026-0012",
+  "timestamp": "2026-06-27T16:16:24.381259",
+  "stato": "in_lavorazione",
+  "cliente": "MakerLab SpA",
+  "email_cliente": "ordini@makerlab.it",
+  "prodotti": [
+    {
+      "nome": "Arduino Mega 2560",
+      "quantita": 10,
+      "prezzo_unitario": 25.0
+    },
+    {
+      "nome": "Raspberry Pi 4 Model B (4 GB)",
+      "quantita": 5,
+      "prezzo_unitario": 75.0
+    },
+    {
+      "nome": "Kit sensori IoT assortiti",
+      "quantita": 2,
+      "prezzo_unitario": 89.5
+    }
+  ],
+  "totale": 804.0,
+  "note": "P.IVA 09876543210 — Consegna presso sede legale, Milano",
+  "mail_id": "mail_002"
+}

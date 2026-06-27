@@ -1,0 +1,27 @@
+{
+  "id_fattura": "INV-2026-0004",
+  "timestamp_creazione": "2026-06-27T16:04:17.161233",
+  "cliente": "MakerLab SpA",
+  "email_cliente": "ordini@makerlab.it",
+  "totale": 804.0,
+  "prodotti": [
+    {
+      "nome": "Arduino Mega 2560",
+      "quantita": 10,
+      "prezzo_unitario": 25.0
+    },
+    {
+      "nome": "Raspberry Pi 4 Model B (4 GB)",
+      "quantita": 5,
+      "prezzo_unitario": 75.0
+    },
+    {
+      "nome": "Kit sensori IoT assortiti",
+      "quantita": 2,
+      "prezzo_unitario": 89.5
+    }
+  ],
+  "stato": "inviata",
+  "testo_fattura": "==============================================================\n  FATTURA N. INV-2026-0004\n==============================================================\n  Data emissione  : 27/06/2026\n  Cliente         : MakerLab SpA\n  Email           : ordini@makerlab.it\n==============================================================\n  VOCI\n--------------------------------------------------------------\n  Arduino Mega 2560                             10 x EUR    25.00 = EUR    250.00\n  Raspberry Pi 4 Model B (4 GB)                  5 x EUR    75.00 = EUR    375.00\n  Kit sensori IoT assortiti                      2 x EUR    89.50 = EUR    179.00\n--------------------------------------------------------------\n  Totale imponibile         : EUR    804.00\n  IVA 22%                   : EUR    176.88\n  TOTALE DA PAGARE          : EUR    980.88\n==============================================================\n  Note: P.IVA 09876543210 — Consegna presso sede legale, Milano\n  Pagamento entro 30 giorni dalla data di emissione.\n==============================================================\n",
+  "timestamp_invio": "2026-06-27T16:04:17.161909"
+}

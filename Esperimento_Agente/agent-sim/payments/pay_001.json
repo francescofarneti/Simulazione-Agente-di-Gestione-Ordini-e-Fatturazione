@@ -1,0 +1,11 @@
+{
+  "id": "pay_001",
+  "timestamp": "2026-06-27T16:17:56.883778",
+  "from": "pagamenti@freelancexyz.it",
+  "from_name": "FreelanceXYZ",
+  "importo": 800.0,
+  "descrizione": "Pagamento per servizi di consulenza grafica e sviluppo web — Giugno 2026",
+  "tipo": "consulenza",
+  "riferimento_fattura": "INV-2026-PREV-042",
+  "metodo_pagamento": "bonifico"
+}

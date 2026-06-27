@@ -1,0 +1,152 @@
+{
+  "cycle_active": false,
+  "active_step": 9,
+  "current_item": "Pagamento: FreelanceXYZ",
+  "step_results": {
+    "1": {
+      "trovate": 2,
+      "mails": [
+        {
+          "id": "mail_001",
+          "from_name": "TechStart Srl",
+          "from": "acquisti@techstart.it",
+          "subject": "Richiesta ordine servizi consulenza IT",
+          "timestamp": "2026-06-27T16:16:56.652704",
+          "n_prodotti": 2,
+          "totale": 1850.0
+        },
+        {
+          "id": "mail_002",
+          "from_name": "MakerLab SpA",
+          "from": "ordini@makerlab.it",
+          "subject": "Ordine acquisto componenti elettronici",
+          "timestamp": "2026-06-27T16:16:56.653171",
+          "n_prodotti": 3,
+          "totale": 804.0
+        }
+      ]
+    },
+    "2": {
+      "subject": "Ordine acquisto componenti elettronici",
+      "from_name": "MakerLab SpA",
+      "from": "ordini@makerlab.it",
+      "body_preview": "Gentili Signori,\nin allegato trovate il nostro ordine per componenti elettronici.\nSiamo disponibili per qualsiasi chiarimento tecnico.\nDistinti saluti,\nMakerLab SpA — Ufficio Approvvigionamenti",
+      "tipo": "ordine",
+      "is_ordine": true
+    },
+    "3": {
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "prodotti": [
+        {
+          "nome": "Arduino Mega 2560",
+          "quantita": 10,
+          "prezzo_unitario": 25.0
+        },
+        {
+          "nome": "Raspberry Pi 4 Model B (4 GB)",
+          "quantita": 5,
+          "prezzo_unitario": 75.0
+        },
+        {
+          "nome": "Kit sensori IoT assortiti",
+          "quantita": 2,
+          "prezzo_unitario": 89.5
+        }
+      ],
+      "totale": 804.0,
+      "note": "P.IVA 09876543210 — Consegna presso sede legale, Milano"
+    },
+    "4": {
+      "id_ordine": "ORD-2026-0018",
+      "cliente": "MakerLab SpA",
+      "prodotti": [
+        {
+          "nome": "Arduino Mega 2560",
+          "quantita": 10,
+          "prezzo_unitario": 25.0
+        },
+        {
+          "nome": "Raspberry Pi 4 Model B (4 GB)",
+          "quantita": 5,
+          "prezzo_unitario": 75.0
+        },
+        {
+          "nome": "Kit sensori IoT assortiti",
+          "quantita": 2,
+          "prezzo_unitario": 89.5
+        }
+      ],
+      "totale": 804.0,
+      "file": "ORD-2026-0018.json",
+      "stato": "in_lavorazione"
+    },
+    "5": {
+      "id_fattura": "INV-2026-0018",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "prodotti": [
+        {
+          "nome": "Arduino Mega 2560",
+          "quantita": 10,
+          "prezzo_unitario": 25.0
+        },
+        {
+          "nome": "Raspberry Pi 4 Model B (4 GB)",
+          "quantita": 5,
+          "prezzo_unitario": 75.0
+        },
+        {
+          "nome": "Kit sensori IoT assortiti",
+          "quantita": 2,
+          "prezzo_unitario": 89.5
+        }
+      ],
+      "testo_fattura": "==============================================================\n  FATTURA N. INV-2026-0018\n==============================================================\n  Data emissione  : 27/06/2026\n  Cliente         : MakerLab SpA\n  Email           : ordini@makerlab.it\n==============================================================\n  VOCI\n--------------------------------------------------------------\n  Arduino Mega 2560                             10 x EUR   25.00 = EUR   250.00\n  Raspberry Pi 4 Model B (4 GB)                  5 x EUR   75.00 = EUR   375.00\n  Kit sensori IoT assortiti                      2 x EUR   89.50 = EUR   179.00\n--------------------------------------------------------------\n  Totale imponibile         : EUR   804.00\n  IVA 22%                   : EUR   176.88\n  TOTALE DA PAGARE          : EUR   980.88\n==============================================================\n  Note: P.IVA 09876543210 — Consegna presso sede legale, Milano\n  Pagamento entro 30 giorni dalla data di emissione.\n==============================================================\n"
+    },
+    "6": {
+      "id_fattura": "INV-2026-0018",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp_invio": "2026-06-27T16:16:57.949308"
+    },
+    "9": {
+      "aggiornamenti": [
+        {
+          "tipo": "pagamento",
+          "id": "pay_001",
+          "importo": 800.0,
+          "categoria": "servizi"
+        }
+      ],
+      "db_totali": {
+        "clienti": 2,
+        "ordini": 18,
+        "fatture": 18,
+        "pagamenti": 9
+      }
+    },
+    "7": {
+      "trovati": 1,
+      "pagamenti": [
+        {
+          "id": "pay_001",
+          "from_name": "FreelanceXYZ",
+          "importo": 800.0,
+          "descrizione": "Pagamento per servizi di consulenza grafica e sviluppo web — Giugno 2026",
+          "metodo": "bonifico"
+        }
+      ]
+    },
+    "8": {
+      "id": "pay_001",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "descrizione": "Pagamento per servizi di consulenza grafica e sviluppo web — Giugno 2026",
+      "tipo_orig": "consulenza",
+      "categoria": "servizi"
+    }
+  }
+}

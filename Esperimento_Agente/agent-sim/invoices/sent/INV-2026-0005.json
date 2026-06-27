@@ -1,0 +1,22 @@
+{
+  "id_fattura": "INV-2026-0005",
+  "timestamp_creazione": "2026-06-27T16:04:41.088942",
+  "cliente": "TechStart Srl",
+  "email_cliente": "acquisti@techstart.it",
+  "totale": 1850.0,
+  "prodotti": [
+    {
+      "nome": "Consulenza IT — Setup infrastruttura cloud",
+      "quantita": 3,
+      "prezzo_unitario": 500.0
+    },
+    {
+      "nome": "Consulenza IT — Analisi dei requisiti",
+      "quantita": 1,
+      "prezzo_unitario": 350.0
+    }
+  ],
+  "stato": "inviata",
+  "testo_fattura": "==============================================================\n  FATTURA N. INV-2026-0005\n==============================================================\n  Data emissione  : 27/06/2026\n  Cliente         : TechStart Srl\n  Email           : acquisti@techstart.it\n==============================================================\n  VOCI\n--------------------------------------------------------------\n  Consulenza IT — Setup infrastruttura cloud     3 x EUR   500.00 = EUR   1500.00\n  Consulenza IT — Analisi dei requisiti          1 x EUR   350.00 = EUR    350.00\n--------------------------------------------------------------\n  Totale imponibile         : EUR   1850.00\n  IVA 22%                   : EUR    407.00\n  TOTALE DA PAGARE          : EUR   2257.00\n==============================================================\n  Note: P.IVA 01234567890 — Consegna report entro 15gg\n  Pagamento entro 30 giorni dalla data di emissione.\n==============================================================\n",
+  "timestamp_invio": "2026-06-27T16:04:41.090340"
+}

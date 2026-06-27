@@ -1,5 +1,0 @@
-{
-  "servizi": ["consulenza", "supporto", "assistenza", "formazione", "sviluppo", "progettazione", "analisi", "web"],
-  "prodotti": ["hardware", "software", "licenza", "attrezzatura", "componente", "arduino", "raspberry", "kit"],
-  "ricorrente": ["abbonamento", "manutenzione", "canone", "mensile", "annuale", "ricorrente", "rata"]
-}

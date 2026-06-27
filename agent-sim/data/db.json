@@ -1,0 +1,371 @@
+{
+  "clienti": {
+    "acquisti@techstart.it": {
+      "nome": "TechStart Srl",
+      "email": "acquisti@techstart.it",
+      "primo_ordine": "2026-06-27T15:41:50.888950"
+    },
+    "ordini@makerlab.it": {
+      "nome": "MakerLab SpA",
+      "email": "ordini@makerlab.it",
+      "primo_ordine": "2026-06-27T15:41:50.894863"
+    }
+  },
+  "ordini": [
+    {
+      "id_ordine": "ORD-2026-0001",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T15:41:50.888959",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0002",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T15:41:50.894870",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0003",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:04:17.159239",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0004",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:04:17.162625",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0005",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:04:41.091479",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0006",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:04:41.095949",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0007",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:00.739990",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0008",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:00.746349",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0009",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:17.161551",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0010",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:17.168692",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0011",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:24.377540",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0012",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:24.384371",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0013",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:36.569703",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0014",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:36.576633",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0015",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:40.078487",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0016",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:40.084690",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0017",
+      "cliente": "TechStart Srl",
+      "email_cliente": "acquisti@techstart.it",
+      "totale": 1850.0,
+      "timestamp": "2026-06-27T16:16:57.943795",
+      "stato": "processato"
+    },
+    {
+      "id_ordine": "ORD-2026-0018",
+      "cliente": "MakerLab SpA",
+      "email_cliente": "ordini@makerlab.it",
+      "totale": 804.0,
+      "timestamp": "2026-06-27T16:16:57.950750",
+      "stato": "processato"
+    }
+  ],
+  "fatture": [
+    {
+      "id_fattura": "INV-2026-0001",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T15:41:50.888999"
+    },
+    {
+      "id_fattura": "INV-2026-0002",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T15:41:50.894905"
+    },
+    {
+      "id_fattura": "INV-2026-0003",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:04:17.159276"
+    },
+    {
+      "id_fattura": "INV-2026-0004",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:04:17.162643"
+    },
+    {
+      "id_fattura": "INV-2026-0005",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:04:41.091546"
+    },
+    {
+      "id_fattura": "INV-2026-0006",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:04:41.095970"
+    },
+    {
+      "id_fattura": "INV-2026-0007",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:00.740015"
+    },
+    {
+      "id_fattura": "INV-2026-0008",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:00.746374"
+    },
+    {
+      "id_fattura": "INV-2026-0009",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:17.161576"
+    },
+    {
+      "id_fattura": "INV-2026-0010",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:17.168716"
+    },
+    {
+      "id_fattura": "INV-2026-0011",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:24.377565"
+    },
+    {
+      "id_fattura": "INV-2026-0012",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:24.384396"
+    },
+    {
+      "id_fattura": "INV-2026-0013",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:36.569735"
+    },
+    {
+      "id_fattura": "INV-2026-0014",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:36.576657"
+    },
+    {
+      "id_fattura": "INV-2026-0015",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:40.078522"
+    },
+    {
+      "id_fattura": "INV-2026-0016",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:40.084715"
+    },
+    {
+      "id_fattura": "INV-2026-0017",
+      "cliente": "TechStart Srl",
+      "totale": 1850.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:57.943835"
+    },
+    {
+      "id_fattura": "INV-2026-0018",
+      "cliente": "MakerLab SpA",
+      "totale": 804.0,
+      "stato": "inviata",
+      "timestamp": "2026-06-27T16:16:57.950774"
+    }
+  ],
+  "pagamenti": [
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T15:41:50.896979"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:04:17.163768"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:04:41.097183"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:00.749633"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:17.189317"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:24.387441"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:36.580135"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:40.087537"
+    },
+    {
+      "id_pagamento": "pay_001",
+      "from": "pagamenti@freelancexyz.it",
+      "from_name": "FreelanceXYZ",
+      "importo": 800.0,
+      "categoria": "servizi",
+      "riferimento_fattura": "INV-2026-PREV-042",
+      "timestamp": "2026-06-27T16:16:57.953621"
+    }
+  ]
+}

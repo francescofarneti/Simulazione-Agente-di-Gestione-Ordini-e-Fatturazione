@@ -1,0 +1,31 @@
+[2026-06-27 16:16:57] === Sessione avviata: 20260627_161657 ===
+[2026-06-27 16:16:57] >>> INIZIO CICLO DI ELABORAZIONE <<<
+[2026-06-27 16:16:57] [STEP 1] Trovate 2 mail in inbox/
+[2026-06-27 16:16:57] 
+--- Elaborazione mail: Richiesta ordine servizi consulenza IT ---
+[2026-06-27 16:16:57] [STEP 2] 'Richiesta ordine servizi consulenza IT' classificata come: ordine
+[2026-06-27 16:16:57] [STEP 3] Estratto — Cliente: TechStart Srl | Prodotti: 2 voci | Totale: EUR 1850.00
+[2026-06-27 16:16:57] [STEP 4] Ordine ORD-2026-0017 inoltrato alla produzione -> ORD-2026-0017.json
+[2026-06-27 16:16:57] [STEP 5] Bozza fattura INV-2026-0017 creata -> INV-2026-0017.json
+[2026-06-27 16:16:57] [STEP 6] Fattura INV-2026-0017 'inviata' a TechStart Srl (acquisti@techstart.it)
+[2026-06-27 16:16:57] [STEP 9] Ordine ORD-2026-0017 registrato nel gestionale
+[2026-06-27 16:16:57] [STEP 9] Fattura INV-2026-0017 registrata nel gestionale
+[2026-06-27 16:16:57] [CLEANUP] Mail 'mail_001.json' spostato in processed/
+[2026-06-27 16:16:57] 
+--- Elaborazione mail: Ordine acquisto componenti elettronici ---
+[2026-06-27 16:16:57] [STEP 2] 'Ordine acquisto componenti elettronici' classificata come: ordine
+[2026-06-27 16:16:57] [STEP 3] Estratto — Cliente: MakerLab SpA | Prodotti: 3 voci | Totale: EUR 804.00
+[2026-06-27 16:16:57] [STEP 4] Ordine ORD-2026-0018 inoltrato alla produzione -> ORD-2026-0018.json
+[2026-06-27 16:16:57] [STEP 5] Bozza fattura INV-2026-0018 creata -> INV-2026-0018.json
+[2026-06-27 16:16:57] [STEP 6] Fattura INV-2026-0018 'inviata' a MakerLab SpA (ordini@makerlab.it)
+[2026-06-27 16:16:57] [STEP 9] Ordine ORD-2026-0018 registrato nel gestionale
+[2026-06-27 16:16:57] [STEP 9] Fattura INV-2026-0018 registrata nel gestionale
+[2026-06-27 16:16:57] [CLEANUP] Mail 'mail_002.json' spostato in processed/
+[2026-06-27 16:16:57] [STEP 7] Trovati 1 pagamenti in payments/
+[2026-06-27 16:16:57] 
+--- Elaborazione pagamento: pay_001 ---
+[2026-06-27 16:16:57] [STEP 8] Pagamento 'pay_001' da FreelanceXYZ (EUR 800.00) -> categoria: servizi
+[2026-06-27 16:16:57] [STEP 9] Pagamento pay_001 registrato con categoria 'servizi'
+[2026-06-27 16:16:57] [CLEANUP] Pagamento 'pay_001.json' spostato in processed/
+[2026-06-27 16:16:57] 
+>>> CICLO COMPLETATO <<<

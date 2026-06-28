@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Runtime data (generated at runtime — not source)
+Esperimento_Agente/agent-sim/logs/
+Esperimento_Agente/agent-sim/data/db.json
+Esperimento_Agente/agent-sim/data/live_state.json
+Esperimento_Agente/agent-sim/data/history.json
+Esperimento_Agente/agent-sim/inbox/*.json
+Esperimento_Agente/agent-sim/payments/*.json
+Esperimento_Agente/agent-sim/processed/*.json
+Esperimento_Agente/agent-sim/production_queue/*.json
+Esperimento_Agente/agent-sim/review_queue/*.json
+Esperimento_Agente/agent-sim/invoices/drafts/*.json
+Esperimento_Agente/agent-sim/invoices/sent/*.json

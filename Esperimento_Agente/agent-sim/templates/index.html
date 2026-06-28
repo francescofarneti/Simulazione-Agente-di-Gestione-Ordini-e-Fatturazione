@@ -19,10 +19,21 @@
       justify-content: space-between; position: sticky; top: 0; z-index: 200;
     }
     .header h1 { font-size: 16px; font-weight: 600; }
-    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .chip {
       font-size: 11px; padding: 2px 8px; border-radius: 20px;
       background: #21262d; color: #8b949e; border: 1px solid #30363d;
+    }
+    .ai-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+      border: 1px solid transparent; letter-spacing: .3px;
+    }
+    .ai-badge.active {
+      background: #0c2a1f; color: #3fb950; border-color: #238636;
+    }
+    .ai-badge.inactive {
+      background: #21262d; color: #8b949e; border-color: #30363d;
     }
     .status-pill {
       display: flex; align-items: center; gap: 7px;
@@ -54,6 +65,17 @@
     .btn-red:not(:disabled):hover   { background: #dc2626; }
     .btn-ghost { background: #21262d; color: #e6edf3; border-color: #30363d; }
     .btn-ghost:not(:disabled):hover { background: #30363d; }
+    .btn-amber { background: #92400e22; color: #e3b341; border-color: #92400e88; }
+    .btn-amber:not(:disabled):hover { background: #92400e44; }
+
+    .scenario-select {
+      padding: 6px 10px; background: #21262d; color: #e6edf3;
+      border: 1px solid #30363d; border-radius: 6px; font-size: 13px; cursor: pointer;
+    }
+    .scenario-select:focus { outline: none; border-color: #58a6ff; }
+
+    .ctrl-sep { width: 1px; height: 22px; background: #30363d; flex-shrink: 0; }
+
     .cd-badge {
       margin-left: auto; font-size: 12px; color: #8b949e;
       background: #21262d; border: 1px solid #30363d;
@@ -61,8 +83,47 @@
     }
     .cd-badge b { color: #58a6ff; font-size: 14px; }
 
+    /* KPI BAR */
+    .kpi-bar {
+      background: #161b22; border-bottom: 1px solid #30363d;
+      padding: 10px 24px; display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .kpi-card {
+      flex: 1; min-width: 130px; background: #0d1117; border: 1px solid #30363d;
+      border-radius: 8px; padding: 10px 14px; display: flex; flex-direction: column; gap: 3px;
+    }
+    .kpi-val   { font-size: 18px; font-weight: 700; color: #58a6ff; }
+    .kpi-val.green { color: #3fb950; }
+    .kpi-val.amber { color: #e3b341; }
+    .kpi-val.red   { color: #f85149; }
+    .kpi-label { font-size: 10px; color: #6e7681; text-transform: uppercase; letter-spacing: .5px; }
+
     /* LAYOUT */
-    .main { padding: 18px 24px; display: flex; flex-direction: column; gap: 16px; }
+    .main { padding: 16px 24px; display: flex; flex-direction: column; gap: 14px; }
+
+    /* PROVA TU */
+    .prova-tu-wrap {
+      background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden;
+    }
+    .pt-header {
+      background: #1a2332; border-bottom: 1px solid #30363d;
+      padding: 11px 16px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    }
+    .pt-title { font-size: 14px; font-weight: 600; color: #e6edf3; }
+    .pt-desc  { font-size: 12px; color: #8b949e; }
+    .pt-body {
+      padding: 14px 16px; display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap;
+    }
+    .pt-textarea {
+      flex: 1; min-width: 260px; resize: vertical;
+      background: #0d1117; border: 1px solid #30363d; border-radius: 6px;
+      color: #e6edf3; font-size: 13px; padding: 10px 12px; line-height: 1.55;
+      font-family: inherit; min-height: 72px;
+    }
+    .pt-textarea:focus { outline: none; border-color: #58a6ff; }
+    .pt-textarea::placeholder { color: #484f58; }
+    .pt-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+    .pt-hint { font-size: 11px; color: #484f58; white-space: nowrap; }
 
     /* PIPELINE */
     .pipeline-wrap {
@@ -80,8 +141,7 @@
       border: 1.5px solid #30363d; border-radius: 9px;
       padding: 11px 8px 10px; text-align: center;
       cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s;
-      position: relative;
-      user-select: none;
+      position: relative; user-select: none;
     }
     .step-card:hover { border-color: #484f58; }
     .step-card .snum  { font-size: 9px; color: #484f58; font-weight:700; letter-spacing:.4px; margin-bottom:5px; }
@@ -102,9 +162,7 @@
       content:"✓"; position:absolute; top:4px; right:7px;
       font-size:10px; color:#3fb950; font-weight:700;
     }
-    .step-card.selected {
-      outline: 2px solid #e3b341; outline-offset: 2px;
-    }
+    .step-card.selected { outline: 2px solid #e3b341; outline-offset: 2px; }
     .step-card.error { border-color: #da3633; background: #1c0808; }
     .step-card.error .slabel { color: #f85149; }
 
@@ -126,9 +184,7 @@
     .detail-header .step-icon-big { font-size: 20px; }
     .detail-header .step-title    { font-size: 14px; font-weight:600; }
     .detail-header .step-sub      { font-size: 12px; color: #8b949e; margin-left:auto; }
-    .detail-body {
-      padding: 18px; flex:1; overflow-y: auto;
-    }
+    .detail-body { padding: 18px; flex:1; overflow-y: auto; }
     .detail-body::-webkit-scrollbar { width:5px; }
     .detail-body::-webkit-scrollbar-thumb { background:#30363d; border-radius:3px; }
 
@@ -149,6 +205,13 @@
     .mail-card .mc-from    { font-size:11px; color:#8b949e; margin-bottom:3px; }
     .mail-card .mc-meta    { font-size:11px; color:#484f58; display:flex; gap:14px; flex-wrap:wrap; }
     .mail-card .mc-meta span { color:#58a6ff; font-weight:600; }
+    .mc-ai-badge {
+      display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 10px;
+      background: #0c2a1f; color: #3fb950; border: 1px solid #238636; margin-left: 6px;
+    }
+    .mc-ai-badge.noai {
+      background: #21262d; color: #8b949e; border-color: #30363d;
+    }
 
     .field-grid { display:grid; grid-template-columns: 140px 1fr; gap:6px 12px; margin-bottom:14px; }
     .field-key  { color:#8b949e; font-size:12px; align-self:center; }
@@ -164,11 +227,42 @@
     .badge-prodotti  { background:#e3b34122; color:#e3b341; border:1px solid #e3b34155; }
     .badge-ricorrente{ background:#8b5cf622; color:#a78bfa; border:1px solid #8b5cf655; }
     .badge-altro2    { background:#6e768122; color:#8b949e; border:1px solid #6e768144; }
+    .badge-review    { background:#92400e22; color:#fb923c; border:1px solid #92400e88; }
 
     .body-preview {
       background:#0d1117; border:1px solid #30363d; border-radius:6px;
       padding:10px 12px; font-size:12px; color:#8b949e; line-height:1.6;
       white-space:pre-wrap; max-height:100px; overflow-y:auto; margin-top:8px;
+    }
+
+    /* Confidence bar */
+    .confidence-wrap {
+      margin-top: 12px; background: #0d1117; border: 1px solid #30363d;
+      border-radius: 8px; padding: 11px 13px;
+    }
+    .conf-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 7px;
+    }
+    .conf-label { font-size: 11px; color: #8b949e; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .conf-pct   { font-size: 13px; font-weight: 700; }
+    .conf-high  { color: #3fb950; }
+    .conf-mid   { color: #e3b341; }
+    .conf-low   { color: #f85149; }
+    .conf-bar-bg {
+      height: 5px; background: #21262d; border-radius: 20px; overflow: hidden; margin-bottom: 8px;
+    }
+    .conf-bar {
+      height: 100%; border-radius: 20px; transition: width .5s ease;
+    }
+    .conf-bar.conf-high { background: #3fb950; }
+    .conf-bar.conf-mid  { background: #e3b341; }
+    .conf-bar.conf-low  { background: #f85149; }
+    .conf-reasoning {
+      font-size: 11px; color: #8b949e; line-height: 1.5; font-style: italic;
+    }
+    .conf-review-warn {
+      margin-top: 8px; font-size: 11px; color: #fb923c; font-weight: 600;
     }
 
     .prodotti-table { width:100%; border-collapse:collapse; font-size:12px; margin-top:8px; }
@@ -190,7 +284,6 @@
     .total-label { font-size:12px; color:#8b949e; }
     .total-val   { font-size:16px; font-weight:700; color:#3fb950; }
 
-    /* Invoice paper */
     .invoice-paper {
       background: #f8f6f0; color: #1a1a1a;
       border-radius: 8px; padding: 20px 22px;
@@ -242,9 +335,7 @@
     .db-entry-id   { font-family:monospace; font-size:12px; color:#58a6ff; }
     .db-entry-val  { font-size:11px; color:#8b949e; }
 
-    .db-totals {
-      display:grid; grid-template-columns:1fr 1fr; gap:6px;
-    }
+    .db-totals { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
     .db-tot-card {
       background:#0d1117; border:1px solid #30363d; border-radius:7px;
       padding:10px; text-align:center;
@@ -287,6 +378,7 @@
     .ll.finish {color:#3fb950;font-weight:600} .ll.s1 {color:#58a6ff}
     .ll.step   {color:#79c0ff}   .ll.cleanup{color:#484f58;font-style:italic}
     .ll.err    {color:#f85149;font-weight:600} .ll.sys{color:#e3b341;font-style:italic}
+    .ll.review {color:#fb923c;font-weight:600}
 
     .info-card {
       background:#161b22; border:1px solid #30363d; border-radius:10px; overflow:hidden;
@@ -310,10 +402,86 @@
     }
     .bdg.has  { background:#1f6feb22; color:#58a6ff; border:1px solid #1f6feb55; }
     .bdg.done { background:#23863622; color:#3fb950; border:1px solid #23863655; }
+    .bdg.warn { background:#92400e22; color:#fb923c; border:1px solid #92400e88; }
+
+    /* REVIEW QUEUE */
+    .review-wrap {
+      background: #1a1208; border: 1px solid #92400e88; border-radius: 10px; overflow: hidden;
+    }
+    .review-header {
+      background: #251a0a; border-bottom: 1px solid #92400e88;
+      padding: 11px 16px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .review-title { font-size: 13px; font-weight: 600; color: #fb923c; }
+    .review-badge {
+      font-size: 11px; padding: 2px 8px; border-radius: 20px;
+      background: #92400e44; color: #fb923c; border: 1px solid #92400e88;
+      font-weight: 700;
+    }
+    .review-desc { font-size: 11px; color: #8b949e; padding: 8px 16px 4px; }
+    .review-item {
+      margin: 10px 14px; padding: 14px;
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap;
+    }
+    .ri-body     { flex: 1; min-width: 220px; }
+    .ri-subject  { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .ri-from     { font-size: 11px; color: #8b949e; margin-bottom: 6px; }
+    .ri-ai       { font-size: 11px; color: #484f58; }
+    .ri-ai b     { color: #fb923c; }
+    .ri-conf     { font-size: 12px; }
+    .ri-actions  { display: flex; gap: 6px; align-items: center; }
+    .review-empty { padding: 16px; font-size: 12px; color: #484f58; text-align: center; }
+
+    /* PROVA TU collapsible */
+    .pt-header { cursor: pointer; }
+    .pt-header:hover { background: #21262d; }
+    .pt-body.collapsed { display: none; }
+
+    /* STORICO CICLI */
+    .storico-wrap {
+      background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden;
+    }
+    .storico-header {
+      background: #1c2128; border-bottom: 1px solid #30363d;
+      padding: 11px 16px; display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; user-select: none;
+    }
+    .storico-header:hover { background: #21262d; }
+    .storico-count { font-size: 11px; color: #8b949e; }
+    .storico-body  { padding: 12px 14px; }
+    .cycle-card {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      margin-bottom: 8px; overflow: hidden;
+    }
+    .cycle-ch {
+      padding: 11px 14px; display: flex; align-items: center; gap: 10px;
+      cursor: pointer; flex-wrap: wrap;
+    }
+    .cycle-ch:hover { background: #161b22; }
+    .cycle-ts { font-size: 12px; color: #8b949e; font-family: monospace; flex-shrink: 0; }
+    .cycle-stats { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #8b949e; }
+    .cstat-val { color: #3fb950; font-weight: 700; }
+    .cycle-detail { border-top: 1px solid #30363d; padding: 14px; display: none; }
+    .cycle-detail.open { display: block; }
+    .cycle-steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+    }
+    .cycle-sp {
+      background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden;
+    }
+    .cycle-sph {
+      background: #1c2128; border-bottom: 1px solid #30363d;
+      padding: 8px 12px; font-size: 12px; font-weight: 600; color: #e6edf3;
+    }
+    .cycle-spb { padding: 12px; max-height: 260px; overflow-y: auto; font-size: 12px; }
+    .cycle-spb::-webkit-scrollbar { width: 4px; }
+    .cycle-spb::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
 
     @media(max-width:900px){
       .bottom-row{grid-template-columns:1fr}
       .pipeline{justify-content:center}
+      .kpi-bar{flex-wrap:wrap}
     }
   </style>
 </head>
@@ -323,7 +491,8 @@
   <div class="header-left">
     <span style="font-size:20px">&#x1F3ED;</span>
     <h1>Agent Sim</h1>
-    <span class="chip">Simulazione Gestione Ordini &amp; Fatturazione</span>
+    <span class="chip">Gestione Ordini &amp; Fatturazione</span>
+    <span class="ai-badge inactive" id="ai-badge">&#x2699; Rule-based</span>
   </div>
   <div class="status-pill">
     <span class="dot" id="status-dot"></span>
@@ -334,13 +503,64 @@
 <div class="controls">
   <button class="btn btn-green" id="btn-once" onclick="runOnce()">&#x25B6; Ciclo singolo</button>
   <button class="btn btn-blue"  id="btn-loop" onclick="toggleLoop()">&#x1F504; Avvia loop (60s)</button>
-  <button class="btn btn-ghost" id="btn-seed" onclick="runSeed()">&#x1F331; Reset / Genera dati test</button>
+  <div class="ctrl-sep"></div>
+  <select class="scenario-select" id="scenario-select" title="Seleziona scenario da generare">
+    <option value="standard">&#x1F4BC; Consulenza IT + Elettronica</option>
+    <option value="retail">&#x1F455; Retail — Abbigliamento (AI)</option>
+    <option value="manifattura">&#x1F527; Manifattura — Componentistica (AI)</option>
+    <option value="studio">&#x2696; Studio Legale — Servizi (AI)</option>
+  </select>
+  <button class="btn btn-ghost" id="btn-seed" onclick="runSeed()">&#x1F504; Genera scenario</button>
+  <div class="ctrl-sep"></div>
+  <button class="btn btn-ghost" id="btn-reset" onclick="resetGestionale()" style="border-color:#da363388;color:#f85149" title="Svuota db e cartelle output">&#x1F5D1; Reset</button>
   <div class="cd-badge" id="cd-wrap" style="display:none">
     Prossima esecuzione tra <b id="cd-val">60</b>s
   </div>
 </div>
 
+<!-- KPI BAR -->
+<div class="kpi-bar" id="kpi-bar">
+  <div class="kpi-card">
+    <div class="kpi-val green" id="kpi-fatturato">EUR 0</div>
+    <div class="kpi-label">&#x1F4B0; Fatturato totale</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val" id="kpi-ordini">0</div>
+    <div class="kpi-label">&#x1F4CB; Ordini processati</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val" id="kpi-clienti">0</div>
+    <div class="kpi-label">&#x1F465; Clienti acquisiti</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val amber" id="kpi-pagamenti">EUR 0</div>
+    <div class="kpi-label">&#x2705; Pagamenti ricevuti</div>
+  </div>
+  <div class="kpi-card" id="kpi-review-card" style="display:none">
+    <div class="kpi-val red" id="kpi-review">0</div>
+    <div class="kpi-label">&#x23F8; In revisione umana</div>
+  </div>
+</div>
+
 <main class="main">
+
+  <!-- PROVA TU -->
+  <div class="prova-tu-wrap" id="prova-tu-wrap">
+    <div class="pt-header" onclick="toggleProvaTu()">
+      <span class="pt-title">&#x270D; Prova tu — testo libero</span>
+      <span class="pt-desc" id="pt-desc">Scrivi qualsiasi email d'ordine in italiano: l'AI estrae cliente, prodotti e prezzi automaticamente.</span>
+      <span id="pt-arrow" style="color:#484f58;margin-left:auto;padding-left:12px">&#x25BC;</span>
+    </div>
+    <div class="pt-body collapsed" id="pt-body">
+      <textarea class="pt-textarea" id="freetext-input"
+        placeholder="Es: Ciao, ho bisogno di 5 sedie ergonomiche a 180€ l'una e 2 scrivanie regolabili a 420€. Sono Mario Bianchi di Ufficio Moderno Srl, mario@ufficiomoderno.it. Grazie!"
+        rows="3"></textarea>
+      <div class="pt-actions">
+        <button class="btn btn-green" id="btn-freetext" onclick="submitFreetext()">&#x25B6; Analizza con AI</button>
+        <span class="pt-hint" id="pt-hint">Richiede ANTHROPIC_API_KEY</span>
+      </div>
+    </div>
+  </div>
 
   <!-- PIPELINE -->
   <div class="pipeline-wrap">
@@ -395,6 +615,36 @@
 
     </div>
   </div>
+
+  <!-- REVIEW QUEUE -->
+  <div class="review-wrap" id="review-wrap" style="display:none">
+    <div class="review-header">
+      <span class="review-title">&#x23F8; Coda di revisione umana</span>
+      <span class="review-badge" id="review-count-badge">0</span>
+    </div>
+    <div class="review-desc">
+      L'AI ha classificato queste mail con confidenza bassa (&lt; 72%). Verifica e approva o rifiuta.
+    </div>
+    <div id="review-body"></div>
+  </div>
+
+  <!-- STORICO CICLI -->
+  <div class="storico-wrap">
+    <div class="storico-header" onclick="toggleStorico()">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:16px">&#x1F4DA;</span>
+        <span style="font-size:13px;font-weight:600;color:#e6edf3">Storico cicli</span>
+        <span class="storico-count" id="storico-count"></span>
+      </div>
+      <span id="storico-arrow" style="color:#484f58">&#x25BC;</span>
+    </div>
+    <div id="storico-body-wrap" style="display:none">
+      <div class="storico-body" id="storico-body">
+        <div style="color:#484f58;font-size:12px">Nessun ciclo ancora. Avvia l'agente per vedere lo storico.</div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <script>
@@ -416,12 +666,13 @@ const STEPS = [
 // =========================================================
 // STATO UI
 // =========================================================
-let stepStates    = {};   // {1:"idle", 2:"active", ...}
-let selectedStep  = null; // step selezionato manualmente (null = segue attivo)
-let userPinned    = false; // l'utente ha cliccato manualmente?
-let loopActive    = false;
-let liveData      = {};   // ultimo dato da /api/live
-let resetTimer    = null;
+let stepStates   = {};
+let selectedStep = null;
+let userPinned   = false;
+let loopActive   = false;
+let liveData     = {};
+let resetTimer   = null;
+let aiMode       = false;
 
 // =========================================================
 // BUILD PIPELINE
@@ -450,20 +701,18 @@ function setStep(id, state) {
   el.className = "step-card" + (state !== "idle" ? " " + state : "") + sel;
   stepStates[id] = state;
 }
-
 function resetSteps() { STEPS.forEach(s => setStep(s.id, "idle")); }
 function completeActive() {
   STEPS.forEach(s => { if (stepStates[s.id] === "active") setStep(s.id, "complete"); });
 }
 
 // =========================================================
-// SELEZIONE STEP (manuale o automatica)
+// SELEZIONE STEP
 // =========================================================
 function selectStep(id, manual = false) {
-  if (manual) { userPinned = true; }
+  if (manual) userPinned = true;
   const prev = selectedStep;
   selectedStep = id;
-  // aggiorna classi per rimuovere "selected" dal vecchio
   if (prev && prev !== id) {
     const prevEl = document.getElementById(`step-${prev}`);
     if (prevEl) prevEl.classList.remove("selected");
@@ -473,7 +722,7 @@ function selectStep(id, manual = false) {
 
   const s = STEPS.find(x => x.id === id);
   const data = liveData.step_results && liveData.step_results[String(id)];
-  document.getElementById("dh-icon").innerHTML  = s ? s.icon : "&#x1F4E6;";
+  document.getElementById("dh-icon").innerHTML   = s ? s.icon : "&#x1F4E6;";
   document.getElementById("dh-title").textContent = s ? s.title : "";
   document.getElementById("dh-sub").textContent   = liveData.current_item || "";
   document.getElementById("detail-body").innerHTML = data
@@ -482,10 +731,26 @@ function selectStep(id, manual = false) {
 }
 
 // =========================================================
-// RENDERER DETAIL PER OGNI STEP
+// RENDERER DETTAGLIO STEP
 // =========================================================
 function eur(v) { return "EUR " + Number(v).toLocaleString("it-IT", {minimumFractionDigits:2}); }
 function ts2h(ts) { return ts ? ts.replace("T"," ").substring(0,19) : ""; }
+
+function renderConfBar(confidence, reasoning, ai, needs_review) {
+  if (!ai) return "";
+  const pct = Math.round((confidence || 0) * 100);
+  const cls = confidence >= 0.85 ? "conf-high" : confidence >= 0.72 ? "conf-mid" : "conf-low";
+  return `
+    <div class="confidence-wrap">
+      <div class="conf-header">
+        <span class="conf-label">&#x1F916; Confidenza AI</span>
+        <span class="conf-pct ${cls}">${pct}%</span>
+      </div>
+      <div class="conf-bar-bg"><div class="conf-bar ${cls}" style="width:${pct}%"></div></div>
+      ${reasoning ? `<div class="conf-reasoning">&#x1F4AC; ${reasoning}</div>` : ""}
+      ${needs_review ? `<div class="conf-review-warn">&#x26A0; Confidenza bassa — inviato alla coda di revisione umana</div>` : ""}
+    </div>`;
+}
 
 function renderDetail(id, d) {
   switch(id) {
@@ -506,21 +771,28 @@ function renderStep1(d) {
   if (!d.trovate) return `<div class="empty-state"><div class="big">&#x1F4ED;</div><p>Nessuna mail trovata in inbox/</p></div>`;
   const cards = (d.mails||[]).map(m => `
     <div class="mail-card">
-      <div class="mc-subject">&#x2709; ${m.subject}</div>
+      <div class="mc-subject">&#x2709; ${m.subject}
+        ${m.ha_attachment
+          ? `<span class="mc-ai-badge noai">allegato strutturato</span>`
+          : `<span class="mc-ai-badge">testo libero</span>`}
+      </div>
       <div class="mc-from">Da: <b>${m.from_name}</b> &lt;${m.from}&gt;</div>
       <div class="mc-meta">
-        <span>${m.n_prodotti} prodott${m.n_prodotti===1?"o":"i"}</span>
+        <span>${m.n_prodotti} prodott${m.n_prodotti===1?"o":"i"} in allegato</span>
         &bull;
         <span>${eur(m.totale)}</span>
         &bull; ${ts2h(m.timestamp)}
       </div>
     </div>`).join("");
-  return `<div class="section-title">${d.trovate} mail trovat${d.trovate===1?"a":"e"} in inbox/</div>${cards}`;
+  const aiTag = d.ai_mode ? `<span class="mc-ai-badge">&#x1F916; Modalità AI attiva</span>` : `<span class="mc-ai-badge noai">&#x2699; Rule-based</span>`;
+  return `<div class="section-title">${d.trovate} mail trovat${d.trovate===1?"a":"e"} in inbox/ ${aiTag}</div>${cards}`;
 }
 
 function renderStep2(d) {
-  const badgeCls = d.is_ordine ? "badge-ordine" : "badge-altro";
-  const badgeTxt = d.is_ordine ? "&#x2714; ORDINE" : "&#x2718; NON ORDINE";
+  const badgeCls = d.needs_review ? "badge-review" : d.is_ordine ? "badge-ordine" : "badge-altro";
+  const badgeTxt = d.needs_review
+    ? "&#x23F8; IN REVISIONE"
+    : d.is_ordine ? "&#x2714; ORDINE" : "&#x2718; NON ORDINE";
   return `
     <div class="section-title">Mail analizzata</div>
     <div class="field-grid">
@@ -531,10 +803,12 @@ function renderStep2(d) {
     </div>
     <div class="section-title">Corpo mail</div>
     <div class="body-preview">${d.body_preview}</div>
-    <div style="margin-top:14px; display:flex; align-items:center; gap:10px;">
+    <div style="margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
       <span class="field-key">Classificazione:</span>
       <span class="badge-tipo ${badgeCls}">${badgeTxt}</span>
-    </div>`;
+      ${d.human_approved ? `<span class="badge-tipo badge-ordine">&#x1F9D1; Approvato operatore</span>` : ""}
+    </div>
+    ${renderConfBar(d.confidence, d.reasoning, d.ai_mode, d.needs_review)}`;
 }
 
 function renderStep3(d) {
@@ -547,21 +821,26 @@ function renderStep3(d) {
       <td class="td-tot">${eur(sub)}</td>
     </tr>`;
   }).join("");
+  const emptyNote = !d.prodotti || d.prodotti.length === 0
+    ? `<div class="conf-review-warn" style="margin-top:8px">&#x2139; Nessun prodotto estratto — in modalità rule-based senza allegato strutturato questo campo è vuoto.</div>`
+    : "";
   return `
     <div class="field-grid" style="margin-bottom:14px">
       <span class="field-key">Cliente</span>   <span class="field-val"><b>${d.cliente}</b></span>
       <span class="field-key">Email</span>     <span class="field-val">${d.email_cliente}</span>
-      ${d.note ? `<span class="field-key">Note</span><span class="field-val" style="color:#8b949e">${d.note}</span>` : ""}
+      ${d.note ? `<span class="field-key">Note</span><span class="field-val" style="color:#8b949e;font-size:12px">${d.note}</span>` : ""}
     </div>
     <div class="section-title">Prodotti / Servizi</div>
-    <table class="prodotti-table">
+    ${rows ? `<table class="prodotti-table">
       <thead><tr><th>Descrizione</th><th style="text-align:right">Qty</th><th style="text-align:right">Prezzo</th><th style="text-align:right">Subtotale</th></tr></thead>
       <tbody>${rows}</tbody>
-    </table>
+    </table>` : ""}
+    ${emptyNote}
     <div class="total-row">
       <span class="total-label">Totale imponibile</span>
       <span class="total-val">${eur(d.totale)}</span>
-    </div>`;
+    </div>
+    ${renderConfBar(d.confidence, d.reasoning, d.ai_mode, false)}`;
 }
 
 function renderStep4(d) {
@@ -575,11 +854,11 @@ function renderStep4(d) {
       <span class="field-key">File creato</span><span class="field-val" style="color:#8b949e;font-size:11px">production_queue/${d.file}</span>
       <span class="field-key">Stato</span>      <span class="field-val"><span class="badge-tipo badge-ordine">&#x2699; ${d.stato}</span></span>
     </div>
-    <div class="section-title">Riepilogo prodotti</div>
+    ${rows ? `<div class="section-title">Riepilogo prodotti</div>
     <table class="prodotti-table">
       <thead><tr><th>Prodotto</th><th style="text-align:right">Qty</th><th style="text-align:right">Totale</th></tr></thead>
       <tbody>${rows}</tbody>
-    </table>
+    </table>` : ""}
     <div class="total-row"><span class="total-label">Totale ordine</span><span class="total-val">${eur(d.totale)}</span></div>`;
 }
 
@@ -591,7 +870,7 @@ function renderStep5(d) {
       <span class="field-key">Inviata a</span>  <span class="field-val">${d.email_cliente}</span>
       <span class="field-key">Totale + IVA</span><span class="field-val" style="color:#3fb950;font-weight:700">${eur(d.totale * 1.22)}</span>
     </div>
-    <div class="section-title">Anteprima fattura</div>
+    <div class="section-title">Anteprima fattura ${d.ai_mode ? '<span class="mc-ai-badge">&#x1F916; generata da AI</span>' : ""}</div>
     <div class="invoice-paper">${(d.testo_fattura||"").replace(/&/g,"&amp;").replace(/</g,"&lt;")}</div>`;
 }
 
@@ -650,7 +929,8 @@ function renderStep8(d) {
     <div class="cat-result">
       <span class="cat-result-label">Categoria assegnata:</span>
       <span class="badge-tipo ${catBadge} cat-result-badge">&#x1F3F7; ${d.categoria.toUpperCase()}</span>
-    </div>`;
+    </div>
+    ${renderConfBar(d.confidence, d.reasoning, d.ai_mode, false)}`;
 }
 
 function renderStep9(d) {
@@ -675,13 +955,41 @@ function renderStep9(d) {
     </div>`).join("");
   return `
     <div class="section-title">Voci registrate</div>
-    <div class="db-update-list">${entries}</div>
+    <div class="db-update-list">${entries || "<div style='color:#484f58;font-size:12px'>Nessuna voce da registrare.</div>"}</div>
     <div class="section-title">Stato gestionale</div>
     <div class="db-totals">${totals}</div>`;
 }
 
 // =========================================================
-// PARSING LOG → STEP ANIMATION
+// LOG
+// =========================================================
+function logClass(l) {
+  if (l.includes(">>> INIZIO"))            return "start";
+  if (l.includes(">>> CICLO COMPLETATO"))  return "finish";
+  if (l.includes("[REVIEW]"))              return "review";
+  if (l.includes("[STEP 1]"))              return "s1";
+  if (/\[STEP \d\]/.test(l))              return "step";
+  if (l.includes("[CLEANUP]"))             return "cleanup";
+  if (l.includes("[ERRORE]"))              return "err";
+  if (l.startsWith("──"))                  return "sys";
+  return "ts";
+}
+function appendLog(text, cls) {
+  const b = document.getElementById("log-body");
+  const ph = b.querySelector(".sys");
+  if (ph && ph.textContent.includes("attesa")) ph.remove();
+  const d = document.createElement("div");
+  d.className = "ll " + (cls || logClass(text));
+  d.textContent = text;
+  b.appendChild(d);
+  b.scrollTop = b.scrollHeight;
+}
+function clearLog() {
+  document.getElementById("log-body").innerHTML = '<div class="ll sys">Log pulito.</div>';
+}
+
+// =========================================================
+// LOG PARSING → ANIMAZIONE PIPELINE
 // =========================================================
 function processLine(line) {
   if (line.includes(">>> INIZIO CICLO")) {
@@ -691,7 +999,7 @@ function processLine(line) {
   }
   if (line.includes(">>> CICLO COMPLETATO")) {
     completeActive();
-    resetTimer = setTimeout(() => { resetSteps(); }, 4500);
+    resetTimer = setTimeout(() => resetSteps(), 4500);
   }
   if (line.includes("[ERRORE]")) {
     STEPS.forEach(s => { if (stepStates[s.id]==="active") setStep(s.id,"error"); });
@@ -705,34 +1013,7 @@ function processLine(line) {
 }
 
 // =========================================================
-// LOG
-// =========================================================
-function logClass(l) {
-  if (l.includes(">>> INIZIO"))   return "start";
-  if (l.includes(">>> CICLO COMPLETATO")) return "finish";
-  if (l.includes("[STEP 1]"))     return "s1";
-  if (/\[STEP \d\]/.test(l))      return "step";
-  if (l.includes("[CLEANUP]"))    return "cleanup";
-  if (l.includes("[ERRORE]"))     return "err";
-  if (l.startsWith("──"))         return "sys";
-  return "ts";
-}
-function appendLog(text, cls) {
-  const b = document.getElementById("log-body");
-  const ph = b.querySelector(".sys");
-  if (ph && ph.textContent.includes("attesa")) ph.remove();
-  const d = document.createElement("div");
-  d.className = "ll " + (cls||logClass(text));
-  d.textContent = text;
-  b.appendChild(d);
-  b.scrollTop = b.scrollHeight;
-}
-function clearLog() {
-  document.getElementById("log-body").innerHTML = '<div class="ll sys">Log pulito.</div>';
-}
-
-// =========================================================
-// SSE — log in tempo reale
+// SSE
 // =========================================================
 function connectSSE() {
   const es = new EventSource("/api/logs/stream");
@@ -749,32 +1030,25 @@ function connectSSE() {
 }
 
 // =========================================================
-// POLLING LIVE — aggiorna detail panel dati step
+// POLLING LIVE
 // =========================================================
 async function pollLive() {
   try {
     const r = await fetch("/api/live");
     liveData = await r.json();
     const active = liveData.active_step;
-    // Se non pinnato dall'utente, segui lo step attivo
-    if (!userPinned && active > 0) {
-      selectStep(active, false);
-    }
-    // Aggiorna il sub-label con l'item corrente
+    if (!userPinned && active > 0) selectStep(active, false);
     document.getElementById("dh-sub").textContent = liveData.current_item || "";
-    // Se il panel mostra uno step con dati aggiornati, aggiorna il contenuto
     if (selectedStep) {
       const data = liveData.step_results && liveData.step_results[String(selectedStep)];
-      if (data) {
-        document.getElementById("detail-body").innerHTML = renderDetail(selectedStep, data);
-      }
+      if (data) document.getElementById("detail-body").innerHTML = renderDetail(selectedStep, data);
     }
   } catch {}
   setTimeout(pollLive, 800);
 }
 
 // =========================================================
-// POLLING STATUS — cartelle, db, pulsanti
+// POLLING STATUS
 // =========================================================
 async function pollStatus() {
   try {
@@ -797,8 +1071,11 @@ function renderStatus(s) {
   if (loopActive) { bl.textContent="⏹ Ferma loop"; bl.className="btn btn-red"; }
   else { bl.innerHTML="&#x1F504; Avvia loop (60s)"; bl.className="btn btn-blue"; }
 
-  document.getElementById("btn-once").disabled = s.agent_running || s.loop_active;
-  document.getElementById("btn-seed").disabled = s.agent_running || s.loop_active;
+  const busy = s.agent_running || s.loop_active;
+  document.getElementById("btn-once").disabled  = busy;
+  document.getElementById("btn-seed").disabled  = busy;
+  document.getElementById("btn-reset").disabled = busy;
+  document.getElementById("btn-freetext").disabled = busy;
 
   const cd = document.getElementById("cd-wrap");
   if (s.loop_active && s.countdown !== null) {
@@ -827,6 +1104,98 @@ function renderStatus(s) {
 }
 
 // =========================================================
+// POLLING KPI
+// =========================================================
+async function pollKPIs() {
+  try {
+    const r = await fetch("/api/kpis");
+    const k = await r.json();
+    document.getElementById("kpi-fatturato").textContent = eur(k.fatturato || 0);
+    document.getElementById("kpi-ordini").textContent    = k.ordini || 0;
+    document.getElementById("kpi-clienti").textContent   = k.clienti || 0;
+    document.getElementById("kpi-pagamenti").textContent = eur(k.pagamenti || 0);
+    const rv = k.in_revisione || 0;
+    document.getElementById("kpi-review").textContent    = rv;
+    document.getElementById("kpi-review-card").style.display = rv > 0 ? "block" : "none";
+  } catch {}
+  setTimeout(pollKPIs, 3000);
+}
+
+// =========================================================
+// POLLING AI STATUS
+// =========================================================
+async function pollAIStatus() {
+  try {
+    const r = await fetch("/api/ai-status");
+    const s = await r.json();
+    aiMode = s.ai_mode;
+    const badge = document.getElementById("ai-badge");
+    if (s.ai_mode) {
+      badge.className = "ai-badge active";
+      badge.innerHTML = "&#x1F916; AI attiva";
+      badge.title = `Modello: ${s.model} | Soglia revisione: ${Math.round(s.threshold*100)}%`;
+      document.getElementById("pt-hint").textContent = "Digita e premi Analizza con AI";
+      document.getElementById("pt-hint").style.color = "#3fb950";
+      // Apri la sezione Prova tu quando AI è attiva
+      const ptBody = document.getElementById("pt-body");
+      if (ptBody.classList.contains("collapsed")) {
+        ptBody.classList.remove("collapsed");
+        document.getElementById("pt-arrow").innerHTML = "&#x25B2;";
+      }
+    } else {
+      badge.className = "ai-badge inactive";
+      badge.innerHTML = "&#x2699; Rule-based";
+      badge.title = "Imposta ANTHROPIC_API_KEY per abilitare la modalita' AI";
+      document.getElementById("btn-freetext").disabled = true;
+      document.getElementById("btn-freetext").title = "Richiede ANTHROPIC_API_KEY";
+    }
+  } catch {}
+}
+
+// =========================================================
+// POLLING REVIEW QUEUE
+// =========================================================
+async function pollReview() {
+  try {
+    const r = await fetch("/api/review");
+    const d = await r.json();
+    const wrap  = document.getElementById("review-wrap");
+    const body  = document.getElementById("review-body");
+    const badge = document.getElementById("review-count-badge");
+    if (d.items && d.items.length > 0) {
+      wrap.style.display = "block";
+      badge.textContent = d.items.length;
+      body.innerHTML = d.items.map(renderReviewItem).join("");
+    } else {
+      wrap.style.display = "none";
+    }
+  } catch {}
+  setTimeout(pollReview, 3000);
+}
+
+function renderReviewItem(item) {
+  const ai   = item.ai_result || {};
+  const mail = item.mail || {};
+  const pct  = Math.round((ai.confidence || 0) * 100);
+  const cls  = pct >= 85 ? "conf-high" : pct >= 72 ? "conf-mid" : "conf-low";
+  return `
+    <div class="review-item">
+      <div class="ri-body">
+        <div class="ri-subject">${mail.subject || "Senza oggetto"}</div>
+        <div class="ri-from">Da: ${mail.from_name || mail.from || "?"}</div>
+        <div class="ri-ai">AI suggerisce: <b>${ai.tipo || "?"}</b>
+          &nbsp;<span class="conf-pct ${cls}">${pct}%</span>
+          &nbsp;— ${ai.reasoning || ""}
+        </div>
+      </div>
+      <div class="ri-actions">
+        <button class="btn btn-green" onclick="approveReview('${item.id}')">&#x2713; Approva come ordine</button>
+        <button class="btn btn-ghost" onclick="rejectReview('${item.id}')">&#x2715; Rifiuta</button>
+      </div>
+    </div>`;
+}
+
+// =========================================================
 // AZIONI PULSANTI
 // =========================================================
 async function runOnce() {
@@ -849,13 +1218,144 @@ async function toggleLoop() {
 }
 
 async function runSeed() {
+  const scenario = document.getElementById("scenario-select").value;
   document.getElementById("btn-seed").disabled = true;
-  appendLog("[UI] Generazione dati di test...", "sys");
-  const r = await fetch("/api/seed", { method:"POST" });
+  appendLog(`[UI] Generazione scenario '${scenario}'...`, "sys");
+  const r = await fetch(`/api/seed/${scenario}`, { method:"POST" });
   const d = await r.json();
   document.getElementById("btn-seed").disabled = false;
   if (d.error) { appendLog("[UI] " + d.error, "err"); return; }
   if (d.output) d.output.trim().split("\n").forEach(l => appendLog(l, "sys"));
+}
+
+async function submitFreetext() {
+  const testo = document.getElementById("freetext-input").value.trim();
+  if (!testo) { appendLog("[UI] Inserisci del testo prima di inviare.", "err"); return; }
+  appendLog("[UI] Invio testo libero all'agente AI...", "sys");
+  const r = await fetch("/api/process-freetext", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ testo })
+  });
+  const d = await r.json();
+  if (d.error) { appendLog("[UI] " + d.error, "err"); return; }
+  appendLog("[UI] Email inserita in inbox/ — pipeline in avvio...", "sys");
+  userPinned = false;
+  document.getElementById("freetext-input").value = "";
+}
+
+async function approveReview(itemId) {
+  appendLog(`[UI] Approvazione item ${itemId}...`, "sys");
+  const r = await fetch(`/api/review/${itemId}/approve`, { method:"POST" });
+  const d = await r.json();
+  if (d.error) { appendLog("[UI] " + d.error, "err"); return; }
+  appendLog("[UI] Approvato — elaborazione in corso...", "sys");
+  userPinned = false;
+}
+
+async function rejectReview(itemId) {
+  const r = await fetch(`/api/review/${itemId}/reject`, { method:"POST" });
+  const d = await r.json();
+  if (d.error) { appendLog("[UI] " + d.error, "err"); return; }
+  appendLog("[UI] Item rifiutato e rimosso dalla coda.", "sys");
+}
+
+// =========================================================
+// RESET GESTIONALE
+// =========================================================
+async function resetGestionale() {
+  if (!confirm("Confermi il reset del gestionale?\n\nVerranno eliminati:\n- db.json (clienti, ordini, fatture, pagamenti)\n- Cartelle: inbox, production_queue, invoices, processed, review_queue, payments\n\nLo storico cicli verra' conservato.")) return;
+  const r = await fetch("/api/reset", { method:"POST" });
+  const d = await r.json();
+  if (d.error) { appendLog("[UI] " + d.error, "err"); return; }
+  appendLog("[UI] Gestionale resettato.", "sys");
+  resetSteps();
+  userPinned = false;
+}
+
+// =========================================================
+// PROVA TU — toggle
+// =========================================================
+function toggleProvaTu() {
+  const body  = document.getElementById("pt-body");
+  const arrow = document.getElementById("pt-arrow");
+  const open  = !body.classList.contains("collapsed");
+  body.classList.toggle("collapsed", open);
+  arrow.innerHTML = open ? "&#x25BC;" : "&#x25B2;";
+}
+
+// =========================================================
+// STORICO CICLI
+// =========================================================
+function toggleStorico() {
+  const wrap  = document.getElementById("storico-body-wrap");
+  const arrow = document.getElementById("storico-arrow");
+  const open  = wrap.style.display !== "none";
+  wrap.style.display = open ? "none" : "block";
+  arrow.innerHTML = open ? "&#x25BC;" : "&#x25B2;";
+}
+
+function toggleCycleDetail(cid) {
+  const el = document.getElementById("cd-" + cid);
+  if (el) el.classList.toggle("open");
+}
+
+function renderCycleCard(cycle) {
+  const ts    = (cycle.timestamp || "").replace("T", " ").substring(0, 16);
+  const stats = cycle.stats || {};
+  const aiCls = cycle.ai_mode ? "ai-badge active" : "ai-badge inactive";
+  const aiLbl = cycle.ai_mode ? "&#x1F916; AI" : "&#x2699; Rule-based";
+  const revHtml = stats.in_revisione
+    ? `<span style="color:#fb923c">${stats.in_revisione} in revisione</span>` : "";
+  const errHtml = stats.errori
+    ? `<span style="color:#f85149">${stats.errori} errori</span>` : "";
+  return `
+    <div class="cycle-card">
+      <div class="cycle-ch" onclick="toggleCycleDetail('${cycle.cycle_id}')">
+        <span class="cycle-ts">${ts}</span>
+        <span class="${aiCls}" style="font-size:10px;padding:2px 8px">${aiLbl}</span>
+        <div class="cycle-stats">
+          <span>${stats.ordini_processati || 0} ordin${(stats.ordini_processati||0)===1?"e":"i"}</span>
+          <span class="cstat-val">${eur(stats.fatturato || 0)}</span>
+          <span>${stats.pagamenti || 0} pagament${(stats.pagamenti||0)===1?"o":"i"}</span>
+          ${revHtml}${errHtml}
+        </div>
+        <span style="color:#484f58;margin-left:auto">&#x25BC;</span>
+      </div>
+      <div class="cycle-detail" id="cd-${cycle.cycle_id}">
+        ${renderCycleSteps(cycle.step_results || {})}
+      </div>
+    </div>`;
+}
+
+function renderCycleSteps(stepResults) {
+  const entries = Object.entries(stepResults).filter(([,v]) => v && Object.keys(v).length > 0);
+  if (!entries.length) return `<div style="color:#484f58;font-size:12px">Nessun dato disponibile per questo ciclo.</div>`;
+  return `<div class="cycle-steps-grid">${entries.map(([id, data]) => {
+    const s = STEPS.find(x => String(x.id) === String(id));
+    if (!s) return "";
+    return `<div class="cycle-sp">
+      <div class="cycle-sph">${s.icon} Step ${s.id} — ${s.title}</div>
+      <div class="cycle-spb">${renderDetail(Number(id), data)}</div>
+    </div>`;
+  }).join("")}</div>`;
+}
+
+async function pollHistory() {
+  try {
+    const r = await fetch("/api/history");
+    const d = await r.json();
+    const cnt  = document.getElementById("storico-count");
+    const body = document.getElementById("storico-body");
+    if (d.count > 0) {
+      cnt.textContent = d.count + (d.count === 1 ? " ciclo" : " cicli");
+      body.innerHTML  = d.cycles.map(renderCycleCard).join("");
+    } else {
+      cnt.textContent = "";
+      body.innerHTML  = `<div style="color:#484f58;font-size:12px">Nessun ciclo ancora. Avvia l'agente per vedere lo storico.</div>`;
+    }
+  } catch {}
+  setTimeout(pollHistory, 5000);
 }
 
 // =========================================================
@@ -865,6 +1365,10 @@ buildPipeline();
 connectSSE();
 pollLive();
 pollStatus();
+pollKPIs();
+pollAIStatus();
+pollReview();
+pollHistory();
 </script>
 </body>
 </html>

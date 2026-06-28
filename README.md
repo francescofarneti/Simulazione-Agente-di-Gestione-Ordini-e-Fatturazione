@@ -1,263 +1,223 @@
-# Agent Sim — Simulazione Agente di Gestione Ordini e Fatturazione
+# Agent Sim — Agente AI per la Gestione Ordini e Fatturazione
 
-Un sistema agentico simulativo che replica il flusso di back-office di una piccola azienda: ricezione ordini via email, generazione fatture, registrazione pagamenti. Tutto gira su file locali, senza database reali né connessioni esterne.
-
----
-
-## Cosa fa
-
-L'agente legge file JSON da cartelle locali che simulano caselle email e conti pagamenti, poi esegue autonomamente 9 step in sequenza:
-
-```
-inbox/          →  riconosce se è un ordine
-                →  estrae cliente, prodotti, importi
-                →  crea l'ordine in production_queue/
-                →  genera la fattura in invoices/drafts/
-                →  "invia" la fattura (sposta in invoices/sent/)
-                →  aggiorna il gestionale db.json
-
-payments/       →  categorizza il pagamento (servizi / prodotti / ricorrente)
-                →  registra tutto in db.json
-```
-
-Ogni mail elaborata viene spostata in `processed/`. Ogni azione viene loggata in `logs/` con timestamp.
+> **Una dimostrazione pratica di come un sistema agentico AI può automatizzare il back-office di una PMI italiana — dalla ricezione dell'ordine all'emissione della fattura, in modo autonomo.**
 
 ---
 
-## Architettura
+## Il problema che risolve
 
-```
-agent-sim/
-├── agent.py            # Agente principale — esegue un ciclo completo
-├── watcher.py          # Loop autonomo — rilancia agent.py ogni 60 secondi
-├── seed.py             # Genera dati di test realistici
-├── app.py              # Dashboard web (Flask)
-├── templates/
-│   └── index.html      # UI della dashboard
-├── inbox/              # Mail in arrivo (.json)
-├── production_queue/   # Ordini inoltrati alla produzione
-├── invoices/
-│   ├── drafts/         # Fatture generate ma non ancora inviate
-│   └── sent/           # Fatture inviate
-├── payments/           # Pagamenti ricevuti da categorizzare
-├── processed/          # File già elaborati (mail + pagamenti)
-├── logs/               # Log di ogni sessione (un file per esecuzione)
-└── data/
-    ├── db.json          # Gestionale simulato (clienti, ordini, fatture, pagamenti)
-    ├── categories.json  # Categorie di pagamento con keyword per il matching
-    └── live_state.json  # Stato in tempo reale per la dashboard
-```
+Ogni giorno una PMI riceve ordini via email in formati diversi: testo libero, PDF, allegati strutturati. Un operatore deve leggere ogni mail, estrarre i dati, creare l'ordine, generare la fattura e registrare il tutto nel gestionale.
+
+**Questo processo manuale è lento, soggetto a errori e non scala.**
+
+Un agente AI lo automatizza completamente — e quando non è sicuro, chiede all'umano solo ciò che serve.
 
 ---
 
-## Requisiti
+## ROI stimato per una PMI
 
-### Python
-- Python **3.10 o superiore** (testato su 3.14)
-- Verifica con: `python --version`
+| Attività manuale | Tempo/giorno | Con agente AI |
+|---|---|---|
+| Lettura e classificazione email ordini | 30 min | ~2 sec |
+| Estrazione dati da testo libero | 20 min/ordine | automatica |
+| Generazione fattura | 10 min/ordine | automatica |
+| Registrazione nel gestionale | 5 min/ordine | automatica |
+| Categorizzazione pagamenti | 15 min/giorno | automatica |
 
-### Dipendenze
+**Per 10 ordini/giorno → oltre 3 ore risparmiate ogni giorno lavorativo.**
 
-La simulazione usa solo librerie standard Python, tranne una:
+---
+
+## Cosa dimostra questo progetto
+
+Questo sistema replica un flusso reale di back-office end-to-end:
 
 ```
-flask >= 3.0
+Email in arrivo
+  └─► [AI] Classificazione (ordine / info / altro)
+        └─► [AI] Estrazione dati in linguaggio naturale
+              └─► Creazione ordine in produzione
+                    └─► [AI] Generazione fattura professionale
+                          └─► "Invio" fattura al cliente
+                                └─► [AI] Categorizzazione pagamento
+                                      └─► Registrazione nel gestionale
 ```
 
-Installazione:
+**Il punto chiave:** funziona con qualsiasi testo libero in italiano, non solo con strutture dati predefinite.
+
+---
+
+## Human-in-the-loop
+
+L'agente sa quando non è sicuro. Quando la confidenza AI è sotto il 72%, l'item non viene processato automaticamente ma va in **coda di revisione umana** — con l'AI che mostra il suo ragionamento e l'operatore che approva o rifiuta con un click.
+
+Questo è il pattern corretto per sistemi AI in produzione: **automazione dove possibile, supervisione umana dove necessario.**
+
+---
+
+## Avvio rapido
+
 ```bash
-python -m pip install flask
-```
+# 1. Installa dipendenze
+pip install -r requirements.txt
 
-> Tutte le altre librerie (`json`, `pathlib`, `subprocess`, `threading`, `shutil`, `re`) sono incluse in Python.
+# 2. (Opzionale) Imposta API key per modalità AI
+set ANTHROPIC_API_KEY=sk-ant-...   # Windows
+export ANTHROPIC_API_KEY=sk-ant-... # macOS/Linux
 
-### Sistema operativo
-Compatibile con **Windows**, macOS e Linux. I percorsi sono gestiti con `pathlib` e funzionano su tutti i sistemi.
-
----
-
-## Installazione
-
-1. Clona o scarica il progetto
-2. Entra nella cartella:
-   ```bash
-   cd agent-sim
-   ```
-3. Installa Flask:
-   ```bash
-   python -m pip install flask
-   ```
-
-Nessun altro setup richiesto.
-
----
-
-## Come avviare
-
-### Opzione A — Dashboard web (consigliata)
-
-Avvia il server:
-```bash
+# 3. Avvia la dashboard
+cd Esperimento_Agente/agent-sim
 python app.py
 ```
 
-Apri il browser su: **http://localhost:5000**
-
-Dalla dashboard puoi:
-- Cliccare **"Reset / Genera dati test"** per popolare inbox e payments con 3 scenari
-- Cliccare **"Ciclo singolo"** per eseguire l'agente una volta
-- Cliccare **"Avvia loop (60s)"** per il loop autonomo
-- Fermare il server con `Ctrl+C` nel terminale
-
-### Opzione B — Terminale puro
-
-```bash
-python seed.py      # Popola inbox/ con i 3 scenari di test
-python agent.py     # Esegue un ciclo singolo
-python watcher.py   # Avvia il loop autonomo (Ctrl+C per fermare)
-```
+Apri **http://localhost:5000**
 
 ---
 
-## La dashboard in dettaglio
+## Due modalità di funzionamento
 
-La UI mostra in tempo reale cosa sta facendo l'agente ad ogni step:
+| | Rule-based (default) | Modalità AI |
+|---|---|---|
+| Attivazione | Automatica senza API key | Con `ANTHROPIC_API_KEY` impostata |
+| Classificazione mail | Keyword matching | Claude Haiku — comprensione semantica |
+| Estrazione dati | Solo da allegati JSON strutturati | Da qualsiasi testo libero in italiano |
+| Generazione fattura | Template fisso | Testo professionale generato da AI |
+| Categorizzazione pagamenti | Keyword matching | Comprensione contestuale |
+| Confidenza e ragionamento | Non disponibile | Visualizzato su ogni step |
+| Human-in-the-loop | Non applicabile | Attivo sotto soglia 72% |
 
-| Step | Pannello dettaglio |
-|---|---|
-| 1 — Lettura inbox | Le mail in arrivo con mittente, oggetto, prodotti e importo |
-| 2 — Classificazione | Corpo della mail + badge **ORDINE** / **NON ORDINE** |
-| 3 — Estrazione dati | Tabella prodotti con quantità, prezzi, subtotali, totale |
-| 4 — Inoltro produzione | ID ordine generato e file creato in `production_queue/` |
-| 5 — Genera fattura | La fattura completa renderizzata su sfondo carta |
-| 6 — Invio fattura | Conferma con destinatario, ID fattura e timestamp |
-| 7 — Lettura pagamenti | Card dei pagamenti con importo e descrizione |
-| 8 — Categorizzazione | Pagamento + badge colorato della categoria assegnata |
-| 9 — Aggiorna gestionale | Voci registrate + contatori aggiornati del db |
+**La stessa infrastruttura, due livelli di intelligenza.** Perfetto per dimostrare il prima/dopo di un'implementazione AI.
 
-Il pannello segue automaticamente lo step attivo. Cliccando su un qualsiasi step nella pipeline si può rivedere i dati che ha elaborato.
+---
+
+## Dashboard — cosa si vede in tempo reale
+
+### Pipeline a 9 step
+Ogni step si illumina mentre viene eseguito. Cliccandoci si vedono i dati elaborati.
+
+| Step | Descrizione | Con AI |
+|---|---|---|
+| 1 — Lettura inbox | Mail ricevute con tipo (testo libero vs strutturato) | Badge AI |
+| 2 — Classificazione | Tipo mail + **barra di confidenza** + ragionamento AI | ✓ |
+| 3 — Estrazione dati | Tabella prodotti + prezzi + totale | **Estratti da testo libero** |
+| 4 — Inoltro produzione | ID ordine generato + file creato | |
+| 5 — Genera fattura | Fattura completa renderizzata | **Testo generato da AI** |
+| 6 — Invio fattura | Conferma invio | |
+| 7 — Lettura pagamenti | Card pagamenti | |
+| 8 — Categorizzazione | Categoria + **barra di confidenza** + ragionamento AI | ✓ |
+| 9 — Aggiorna gestionale | Voci registrate + contatori DB | |
+
+### KPI bar
+- Fatturato totale (somma fatture emesse)
+- Ordini processati
+- Clienti acquisiti
+- Pagamenti ricevuti
+- Item in revisione umana
+
+### "Prova tu" — il momento wow
+Scrivi qualsiasi email d'ordine in italiano in linguaggio naturale. L'AI estrae cliente, prodotti, quantità e prezzi, genera la fattura e registra tutto nel gestionale — mentre guardi la pipeline animarsi in tempo reale.
+
+### Coda di revisione umana
+Quando la confidenza AI è bassa, l'item appare nella coda con il ragionamento dell'AI. L'operatore approva (avvia elaborazione) o rifiuta con un click.
 
 ---
 
 ## Scenari di test inclusi
 
-`seed.py` genera 3 scenari realistici:
-
-| Scenario | Tipo | File creato |
+| Scenario | Tipo | Richiede AI |
 |---|---|---|
-| **TechStart Srl** — 2 servizi di consulenza IT per EUR 1.850 | Mail → ordine | `inbox/mail_001.json` |
-| **MakerLab SpA** — 3 tipi di componenti elettronici per EUR 804 | Mail → ordine | `inbox/mail_002.json` |
-| **FreelanceXYZ** — Pagamento EUR 800 per consulenza web | Pagamento diretto | `payments/pay_001.json` |
+| **Consulenza IT + Elettronica** | Mail con allegato strutturato | No |
+| **Retail — Abbigliamento** | Email informale in testo libero | Sì |
+| **Manifattura — Componentistica** | Ordine tecnico con codici articolo | Sì |
+| **Studio Legale — Servizi** | Richiesta professionale con tariffe orarie | Sì |
 
-Puoi eseguire `seed.py` più volte: sovrascrive i file esistenti e ripristina l'ambiente iniziale.
-
----
-
-## Aggiungere scenari personalizzati
-
-### Nuova mail-ordine
-
-Crea un file `.json` in `inbox/` con questa struttura:
-
-```json
-{
-  "id": "mail_004",
-  "timestamp": "2026-06-27T10:00:00",
-  "from": "cliente@esempio.it",
-  "from_name": "Nome Azienda Srl",
-  "subject": "Richiesta ordine",
-  "body": "Buongiorno, vorrei ordinare i seguenti prodotti...",
-  "attachment": {
-    "tipo": "ordine",
-    "cliente": "Nome Azienda Srl",
-    "prodotti": [
-      { "nome": "Descrizione prodotto", "quantita": 2, "prezzo_unitario": 300.00 }
-    ],
-    "totale": 600.00,
-    "note": "Eventuali note"
-  }
-}
-```
-
-### Nuovo pagamento
-
-Crea un file `.json` in `payments/`:
-
-```json
-{
-  "id": "pay_002",
-  "timestamp": "2026-06-27T11:00:00",
-  "from": "azienda@email.it",
-  "from_name": "Nome Azienda",
-  "importo": 500.00,
-  "descrizione": "Pagamento canone mensile abbonamento",
-  "tipo": "abbonamento",
-  "riferimento_fattura": "INV-2026-0003",
-  "metodo_pagamento": "bonifico"
-}
-```
-
-La categorizzazione è automatica per keyword. Le categorie e le parole chiave sono configurabili in `data/categories.json`.
+Gli scenari AI mostrano chiaramente la differenza: in modalità rule-based i dati non vengono estratti; in modalità AI l'agente lavora come un operatore umano esperto.
 
 ---
 
-## Modalità API (opzionale)
+## Architettura tecnica
 
-Tutta la logica intelligente dell'agente è scritta in **doppia versione**:
-
-- **Versione rule-based** (attiva di default): usa keyword matching, struttura JSON, template testuali. Non richiede connessioni esterne.
-- **Versione API** (commentata): chiama `claude-sonnet-4-6` via Anthropic SDK per ogni decisione intelligente — classificazione mail, estrazione dati in linguaggio naturale, generazione fattura in prosa, categorizzazione semantica.
-
-Per attivare la modalità API:
-
-1. Ottieni una API key su [console.anthropic.com](https://console.anthropic.com)
-2. Installa l'SDK:
-   ```bash
-   python -m pip install anthropic
-   ```
-3. Imposta la variabile d'ambiente:
-   ```bash
-   # Windows
-   set ANTHROPIC_API_KEY=sk-ant-...
-
-   # macOS / Linux
-   export ANTHROPIC_API_KEY=sk-ant-...
-   ```
-4. In `agent.py`, per ciascuna delle 4 funzioni intelligenti, commenta il blocco rule-based e decommenta il blocco API:
-   - `riconosci_tipo_mail()`
-   - `estrai_dati_ordine()`
-   - `genera_testo_fattura()`
-   - `categorizza_pagamento()`
-
-Ogni blocco API è delimitato da:
-```python
-# --- MODALITA' API (decommentare quando si ha ANTHROPIC_API_KEY) ---
-# ...codice...
-# --- FINE MODALITA' API ---
 ```
+agent-sim/
+├── agent.py            # Agente principale — 9 step, dual-mode AI/rule-based
+├── app.py              # Dashboard web Flask + 14 API endpoint
+├── seed.py             # Generatore scenari di test (4 scenari)
+├── watcher.py          # Loop autonomo ogni 60s
+├── templates/
+│   └── index.html      # Dashboard SPA (vanilla JS, GitHub dark theme)
+├── inbox/              # Mail in arrivo (.json)
+├── production_queue/   # Ordini inoltrati alla produzione
+├── invoices/
+│   ├── drafts/         # Bozze fatture
+│   └── sent/           # Fatture inviate
+├── payments/           # Pagamenti da categorizzare
+├── review_queue/       # Item a bassa confidenza — in attesa di revisione umana
+├── processed/          # File già elaborati
+├── logs/               # Log di sessione con timestamp
+└── data/
+    ├── db.json          # Gestionale simulato
+    ├── categories.json  # Categorie pagamento
+    └── live_state.json  # Stato real-time per la dashboard (IPC)
+```
+
+### Pattern chiave implementati
+- **Dual-mode automatico**: `USE_AI = bool(os.getenv("ANTHROPIC_API_KEY"))` — nessun cambio di codice richiesto
+- **Structured tool use**: ogni funzione AI usa Anthropic tool_use per forzare output con `confidence` e `reasoning`
+- **Human-in-the-loop**: review queue con soglia configurabile (default 72%)
+- **Server-Sent Events**: streaming log in tempo reale senza WebSocket
+- **IPC via JSON**: `live_state.json` come canale tra subprocess agent e dashboard Flask
 
 ---
 
-## Reset completo dell'ambiente
+## API endpoint
 
-Per ripartire da zero (db vuoto, cartelle pulite):
+| Endpoint | Metodo | Descrizione |
+|---|---|---|
+| `/api/run-once` | POST | Esegue un singolo ciclo |
+| `/api/start-loop` | POST | Avvia loop ogni 60s |
+| `/api/stop-loop` | POST | Ferma il loop |
+| `/api/seed/<scenario>` | POST | Genera dati test per scenario |
+| `/api/process-freetext` | POST | Inserisce email in testo libero |
+| `/api/review` | GET | Lista coda di revisione umana |
+| `/api/review/<id>/approve` | POST | Approva item in revisione |
+| `/api/review/<id>/reject` | POST | Rifiuta item in revisione |
+| `/api/ai-status` | GET | Stato modalità AI + parametri |
+| `/api/kpis` | GET | KPI di business (fatturato, ordini, clienti) |
+| `/api/live` | GET | Stato real-time pipeline (polling) |
+| `/api/logs/stream` | GET | SSE stream log in tempo reale |
+| `/api/status` | GET | Stato sistema + conteggi cartelle |
+
+---
+
+## Requisiti
+
+- Python 3.10+
+- `flask>=3.0`
+- `anthropic>=0.40.0` (opzionale — solo per modalità AI)
 
 ```bash
-# Svuota le cartelle di output
-# Windows PowerShell:
-Remove-Item agent-sim\production_queue\*.json -ErrorAction SilentlyContinue
-Remove-Item agent-sim\invoices\drafts\*.json  -ErrorAction SilentlyContinue
-Remove-Item agent-sim\invoices\sent\*.json    -ErrorAction SilentlyContinue
-Remove-Item agent-sim\processed\*.json        -ErrorAction SilentlyContinue
-Remove-Item agent-sim\logs\*.log              -ErrorAction SilentlyContinue
+pip install -r requirements.txt
 ```
 
-Poi ripristina il db vuoto creando `data/db.json` con:
+---
+
+## Reset ambiente
+
+```bash
+# PowerShell
+Remove-Item Esperimento_Agente\agent-sim\production_queue\*.json -EA SilentlyContinue
+Remove-Item Esperimento_Agente\agent-sim\invoices\drafts\*.json  -EA SilentlyContinue
+Remove-Item Esperimento_Agente\agent-sim\invoices\sent\*.json    -EA SilentlyContinue
+Remove-Item Esperimento_Agente\agent-sim\processed\*.json        -EA SilentlyContinue
+Remove-Item Esperimento_Agente\agent-sim\review_queue\*.json     -EA SilentlyContinue
+Remove-Item Esperimento_Agente\agent-sim\logs\*.log              -EA SilentlyContinue
+```
+
+Poi ripristina il db:
 ```json
 { "clienti": {}, "ordini": [], "fatture": [], "pagamenti": [] }
 ```
 
-Infine rigenera i dati di test:
-```bash
-python seed.py
-```
+---
+
+*Progetto portfolio — dimostrazione di implementazione sistemi agentici AI per PMI italiane.*

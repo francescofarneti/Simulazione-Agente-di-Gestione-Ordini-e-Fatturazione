@@ -114,7 +114,7 @@ Ogni step si illumina mentre viene eseguito. Cliccandoci si vedono i dati elabor
 - Pagamenti ricevuti
 - Item in revisione umana
 
-### "Prova tu" — il momento wow
+### "Prova tu" 
 Scrivi qualsiasi email d'ordine in italiano in linguaggio naturale. L'AI estrae cliente, prodotti, quantità e prezzi, genera la fattura e registra tutto nel gestionale — mentre guardi la pipeline animarsi in tempo reale.
 
 ### Coda di revisione umana
